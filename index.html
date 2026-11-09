@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Career Guidance System</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="logo-icon">🎯</span>
+      <span class="logo-text">PathFinder<strong>AI</strong></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#analyzer" class="active">Resume Analyzer</a></li>
+      <li><a href="#results">Career Matches</a></li>
+      <li><a href="#interview">Mock Interview</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="badge online">System Ready</span>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="container">
+
+    <!-- Hero Header -->
+    <header class="hero">
+      <h1>AI Career Guidance System</h1>
+      <p>Analyze your resume, identify skill gaps, get personalized career roadmaps, and practice mock interviews.</p>
+    </header>
+
+    <!-- SECTION 1: RESUME UPLOAD & ANALYZER -->
+    <section id="analyzer" class="card">
+      <div class="card-header">
+        <h2>📄 Step 1: Upload Your Resume</h2>
+        <p>Supports PDF, DOCX, or TXT files. Extracted locally via Python backend.</p>
+      </div>
+      <div class="upload-area" id="dropZone">
+        <input type="file" id="resumeFileInput" accept=".pdf,.docx,.txt" style="display: none;" />
+        <div class="upload-icon">☁️</div>
+        <h3>Drag & drop your resume or <span class="browse-btn" id="browseBtn">browse</span></h3>
+        <p class="file-name" id="selectedFileName">No file selected</p>
+        <button id="analyzeBtn" class="btn primary" disabled>Run AI Career Analysis</button>
+      </div>
+      <div id="loadingIndicator" class="loading-box" style="display: none;">
+        <div class="spinner"></div>
+        <p>Parsing document, extracting NLP skill vectors, and calculating ATS score...</p>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ANALYSIS RESULTS -->
+    <section id="results" class="results-grid" style="display: none;">
+      
+      <!-- ATS Score Card -->
+      <div class="card score-card">
+        <h3>ATS Resume Score</h3>
+        <div class="score-circle">
+          <span id="atsScoreValue">0</span>
+          <span class="score-total">/100</span>
+        </div>
+        <div class="score-breakdown">
+          <div><span>Contact Info:</span> <strong id="contactScore">0/20</strong></div>
+          <div><span>Section Structure:</span> <strong id="sectionScore">0/30</strong></div>
+          <div><span>Skill Density:</span> <strong id="skillScore">0/30</strong></div>
+          <div><span>Action Impact:</span> <strong id="impactScore">0/20</strong></div>
+        </div>
+      </div>
+
+      <!-- Detected Skills Card -->
+      <div class="card skills-card">
+        <h3>Extracted Technical Skills</h3>
+        <div id="skillsPillsContainer" class="pills-container">
+          <!-- Populated by JS -->
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="skillsRadarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Career Matches (Full Width) -->
+      <div class="card full-width">
+        <h3>Recommended Career Paths & Skill Gap Analysis</h3>
+        <div id="careerCardsContainer" class="career-cards-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Actionable Suggestions -->
+      <div class="card full-width">
+        <h3>ATS Improvement Recommendations</h3>
+        <ul id="recommendationsList" class="recommendations-list">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- SECTION 3: MOCK INTERVIEW ENGINE -->
+    <section id="interview" class="card">
+      <div class="card-header">
+        <h2>🎙️ Step 2: AI Mock Interview Practice</h2>
+        <p>Select your target role, answer technical & behavioral questions, and receive automated scoring.</p>
+      </div>
+      <div class="interview-form">
+        <label for="interviewRoleSelect">Select Target Role:</label>
+        <select id="interviewRoleSelect" class="input-select">
+          <option value="AI / Machine Learning Engineer">AI / Machine Learning Engineer</option>
+          <option value="Full-Stack Web Developer">Full-Stack Web Developer</option>
+          <option value="Data Scientist / Analyst">Data Scientist / Analyst</option>
+          <option value="Cloud & DevOps Engineer">Cloud & DevOps Engineer</option>
+        </select>
+
+        <div class="question-box">
+          <span class="q-tag">Question:</span>
+          <p id="currentQuestionText">Tell me about a challenging technical project you worked on and how you handled obstacles.</p>
+          <button id="nextQuestionBtn" class="btn secondary">Get Another Question</button>
+        </div>
+
+        <label for="userAnswerInput">Your Answer:</label>
+        <textarea id="userAnswerInput" rows="5" placeholder="Type your answer here using the STAR approach (Situation, Task, Action, Result)..."></textarea>
+        
+        <button id="submitAnswerBtn" class="btn primary">Evaluate My Answer</button>
+
+        <div id="interviewFeedbackBox" class="feedback-card" style="display: none;">
+          <h4>Interview Evaluation Result</h4>
+          <p><strong>Score:</strong> <span id="evalScore">0</span>/100</p>
+          <p><strong>Word Count:</strong> <span id="evalWords">0</span></p>
+          <p id="evalFeedbackText"></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>AI Career Guidance System &bull; Final Year Academic Project &bull; Built with FastAPI & Vanilla Web Tech</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
